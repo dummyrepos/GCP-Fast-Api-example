@@ -27,6 +27,13 @@ spec:
       containers:
         - name: postgres
           image: postgres:latest
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
           envFrom:
             - configMapRef:
                 name: postgres-config
@@ -44,3 +51,16 @@ spec:
         resources:
           requests:
             storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  labels:
+    app: postgres
+spec:
+  ports:
+    - port: 5432
+  clusterIP: None
+  selector:
+    app: postgres
