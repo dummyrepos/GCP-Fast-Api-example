@@ -42,12 +42,13 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgresdb
+              subPath: postgres
   volumeClaimTemplates:
     - metadata:
         name: postgresdb
       spec:
         accessModes: [ "ReadWriteOnce" ]
-        storageClassName: "standard-rwo"
+        storageClassName: "standard"
         resources:
           requests:
             storage: 1Gi
